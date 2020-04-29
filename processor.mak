@@ -20,6 +20,8 @@ OBJDIR := obj
 BINDIR := bin
 SRCDIR := src
 DISTDIR := dist
+DATADIR := data
+PYTHDIR := pyth
 
 EXECUTIONFILE := test
 
@@ -54,23 +56,31 @@ $(OBJDIR)/%.o : $(SRCDIR)/%.c
 $(BINDIR)/$(EXECUTIONFILE) : $(objects) processor.mak Makefile
 	@echo linking $@ ...
 	mkdir -p $(BINDIR)
+	mkdir -p $(DATADIR)
 	$(CC) -o $@ $(objects) $(LDFLAGS)
 
 #distribute
 $(DISTDIR)/$(EXECUTIONFILE).zip: $(BINDIR)/$(EXECUTIONFILE)
 	mkdir -p $(DISTDIR)
 	@echo zipping $< ...
-	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(BINDIR) $(SRCDIR) processor.mak Makefile
+	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(BINDIR) $(SRCDIR) $(PYTHDIR) processor.mak Makefile
 
 dist: $(DISTDIR)/$(EXECUTIONFILE).zip
 
+$(DATADIR)/%.dat: $(BINDIR)/$(EXECUTIONFILE)
+	@echo calculating $@...
+	$(BINDIR)/$(EXECUTIONFILE)
+
+$(DATADIR)/%.pdf: $(DATADIR)/%.dat
+	@echo plotting $<...
+	python3 $(PYTHDIR)/simpleplotter.py
 # Builder will call this to install the application before running.
 install:
 	echo "Installing is not supported"
 
 # Builder uses this target to run the application.
-run:
-	$(BINDIR)/$(EXECUTIONFILE)
+run:$(BINDIR)/$(EXECUTIONFILE)
+	make $(DATADIR)/*.pdf
 
 #clean directrories
 clean:
@@ -81,6 +91,7 @@ cleanall:
 	$(RM) -r -f $(OBJDIR)
 	$(RM) -r -f $(BINDIR)
 	$(RM) -r -f $(DISTDIR)
+	$(RM) -r -f $(DATADIR)
 
 
 
