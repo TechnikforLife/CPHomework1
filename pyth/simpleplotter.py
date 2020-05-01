@@ -1,10 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import rc
-#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-## for Palatino and other serif fonts use:
-#rc('font',**{'family':'serif','serif':['Palatino']})
-rc('text', usetex=True)
 rawdata = np.loadtxt("data/number1.dat",delimiter=";" ,dtype=float)
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
