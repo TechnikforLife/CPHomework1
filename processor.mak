@@ -71,7 +71,7 @@ $(DATADIR)/%.dat: $(BINDIR)/$(EXECUTIONFILE)
 	@echo calculating $@...
 	$(BINDIR)/$(EXECUTIONFILE)
 
-$(DATADIR)/%.pdf: $(DATADIR)/%.dat
+$(DATADIR)/%.pdf: $(DATADIR)/%.dat $(PYTHDIR)/simpleplotter.py
 	@echo plotting $<...
 	python3 $(PYTHDIR)/simpleplotter.py
 # Builder will call this to install the application before running.

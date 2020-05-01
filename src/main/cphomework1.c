@@ -119,7 +119,8 @@ double diffintegrant(double* variables)
 	 * variables[1]=z
 	 * variables[2]=a
 	 */
-  return exp(-pow(variables[0]/variables[2],2))/pow(pow(variables[0],2)+pow(variables[1],2), 1.5);
+  return exp(-pow(variables[0]/variables[2],2))/pow(pow(variables[0],2)+
+													pow(variables[1],2), 1.5);
 }
 
 double solveH22(double*variables){
@@ -146,8 +147,9 @@ int main (int argc,char *argv[]){
 	value_table(1e-2,10.,1e-3,"data/number1.dat",solveintegral_part1);
 	
 	value_table (1e-2, 10., 1e-1, "data/number2.dat", e_field_part2);
-  double a[3] = {1,2,3};
-	printf("The value of the integal is: %lf\n", solveH22(a));
-  mem_free_all ();
+	
+	value_table (1e-2, 10., 1e-1, "data/number22.dat", solveH22);
+	
+	mem_free_all ();
 	return EXIT_SUCCESS;
 }

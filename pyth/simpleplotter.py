@@ -1,6 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from matplotlib import rc
+#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
+## for Palatino and other serif fonts use:
+#rc('font',**{'family':'serif','serif':['Palatino']})
+rc('text', usetex=True)
 rawdata = np.loadtxt("data/number1.dat",delimiter=";" ,dtype=float)
 fig = plt.figure()
 x_fit=rawdata[1:, 0]
@@ -27,10 +31,16 @@ rawdata = np.loadtxt("data/number2.dat",delimiter=";" ,dtype=float)
 fig = plt.figure()
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
-plt.scatter(x_fit, y_fit,label="a="+str(rawdata[0,1]),s=5,marker="x",linewidth=0.5)
-for i in range(2,np.shape(rawdata)[1]):
+for i in range(1,np.shape(rawdata)[1]):
     y_fit=rawdata[1:, i]
-    plt.scatter(x_fit, y_fit,label="a="+str(rawdata[0,i]),s=5,marker="+",linewidth=0.5)
+    plt.scatter(x_fit, y_fit,label="a_{H2.1}="+str(rawdata[0,i]),s=5,marker="+",linewidth=0.5)
+
+rawdata2 = np.loadtxt("data/number22.dat",delimiter=";" ,dtype=float)
+x_fit=rawdata2[1:, 0]
+y_fit=rawdata2[1:, 1]
+for i in range(1,np.shape(rawdata)[1]):
+    y_fit=rawdata2[1:, i]
+    plt.scatter(x_fit, y_fit,label="a="+str(rawdata2[0,i]),s=5,marker="x",linewidth=0.5)
 
 
 plt.legend(loc='best',ncol=2)
