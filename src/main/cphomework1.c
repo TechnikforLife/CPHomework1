@@ -107,9 +107,38 @@ double symfirstderivative(double h,double (*fp)(double*),
 }
 
 double e_field_part2(double* variables){
+
 	return -symfirstderivative (1e-1, solveintegral_part1, variables);
 }
 
+double diffintegrant(double* variables)
+{
+  /**
+	 * Declarations:
+	 * variables[0]=x
+	 * variables[1]=z
+	 * variables[2]=a
+	 */
+  return exp(-pow(variables[0]/variables[2],2))/pow(pow(variables[0],2)+pow(variables[1],2), 1.5);
+}
+
+double solveH22(double*variables){
+
+	/**
+	 * Declarations:
+	 * prefix			Prefix of the integral
+	 * prec				Precision to be used
+	 * upperboundary	Start value of the upperboundary
+	 * n_0				Start value of the amount of subintervalls
+	 */
+	double prefix=variables[1]*2./(sqrt (M_PI)*variables[2]);
+	double prec=1e-8;
+	double upperboundary_sv=1.;
+	int n_0=2;
+
+	return prefix*romberg_converge_check(variables,0.,
+									upperboundary_sv,diffintegrant,prec,n_0,1);
+}
 int main (int argc,char *argv[]){
 	
 	
@@ -117,6 +146,8 @@ int main (int argc,char *argv[]){
 	value_table(1e-2,10.,1e-3,"data/number1.dat",solveintegral_part1);
 	
 	value_table (1e-2, 10., 1e-1, "data/number2.dat", e_field_part2);
-	mem_free_all ();
+  double a[3] = {1,2,3};
+	printf("The value of the integal is: %lf\n", solveH22(a));
+  mem_free_all ();
 	return EXIT_SUCCESS;
 }

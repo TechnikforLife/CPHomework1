@@ -35,7 +35,7 @@ for i in range(2,np.shape(rawdata)[1]):
 
 plt.legend(loc='best',ncol=2)
 plt.xlabel("z")
-plt.ylabel("V(z)")
+plt.ylabel("E(z)")
 plt.yscale("log")
 #plt.xscale("log")
 
