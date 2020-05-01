@@ -1,7 +1,8 @@
 import numpy as np
-import matplotlib
 import matplotlib.pyplot as plt
-matplotlib.use('Agg')
+from matplotlib import rc
+rc('text', usetex=True)
+
 rawdata = np.loadtxt("data/number1.dat",delimiter=";" ,dtype=float)
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
@@ -28,7 +29,7 @@ x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
 for i in range(1,np.shape(rawdata)[1]):
     y_fit=rawdata[1:, i]
-    plt.scatter(x_fit, y_fit,label="a_{H2.1}="+str(rawdata[0,i]),s=5,marker="+",linewidth=0.5)
+    plt.scatter(x_fit, y_fit,label="$a_{H2.1}=$"+str(rawdata[0,i]),s=5,marker="+",linewidth=0.5)
 
 rawdata2 = np.loadtxt("data/number22.dat",delimiter=";" ,dtype=float)
 x_fit=rawdata2[1:, 0]
