@@ -32,13 +32,13 @@ double integratetrapez_posinf(double lowerboundary,
 	 */
 
 	do{
-		variables[0]=lowerboundary+(i)*subintervalllength;
+		variables[0]=lowerboundary+subintervalllength*i;
 		f_x_i=(*fp)(variables);
 		sum+=f_x_i;
 		i++;
-		//printf("%e,%e,%e\n",f_x_i,sum,sum*relprecision);
-	}while(fabs(f_x_i)>fabs(relprecision)&&1);
-	
+		//printf("%e,%e,i=%d\n",f_x_i,sum,i);
+	}while((fabs(f_x_i)>fabs(relprecision))||(fabs(f_x_i)>fabs(sum*relprecision)));
+	//printf ("-\n");
 	/**
 	 * @note	Calculate f(x_n) (n last relevant index)
 	 * 			and add it to the sum with weight 0.5

@@ -3,36 +3,8 @@
 #include <math.h>
 #include "../generalmemorymanager/generalmemorymanager.h"
 #include "../integrate_romberg/integrate_romberg.h"
-#include <gsl/gsl_const_mksa.h>
+#include "../h1_electricpot/h1_electricpot.h"
 
-double f_i_integral1(double * variables){
-	
-	/**
-	 * Declarations:
-	 * variables[0]=x
-	 * variables[1]=z
-	 * variables[2]=a
-	 */
-	return exp(-pow(variables[0],2)/(pow(variables[2],2)))
-			/sqrt (pow(variables[0],2)+pow(variables[1],2));
-}
-double solveintegral_part1(double*variables){
-	
-	/**
-	 * Declarations:
-	 * prefix			Prefix of the integral
-	 * prec				Precision to be used
-	 * upperboundary	Start value of the upperboundary
-	 * n_0				Start value of the amount of subintervalls
-	 */
-	double prefix=2./(sqrt (M_PI)*variables[2]);
-	double prec=1e-8;
-	double upperboundary_sv=1.;
-	int n_0=2;
-	
-	return prefix*romberg_converge_check(variables,0.,
-									upperboundary_sv,f_i_integral1,prec,n_0,1);
-}
 
 void value_table(double zstart,double zend,double astart,char* filename,
 				 double (*integrate_fp)(double*)){
@@ -117,8 +89,6 @@ int main (int argc,char *argv[]){
 	
 	
 	mem_init (0);
-	//double variables[]={0.,0.1,1000.};
-	//printf("%.10e\n",solveintegral_part1 (variables));
 	value_table(1e-2,10.,1e-3,"data/number1.dat",solveintegral_part1);
 	
 	
