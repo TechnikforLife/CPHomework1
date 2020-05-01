@@ -68,11 +68,11 @@ $(DISTDIR)/$(EXECUTIONFILE).zip: $(BINDIR)/$(EXECUTIONFILE)
 dist: $(DISTDIR)/$(EXECUTIONFILE).zip
 
 $(DATADIR)/%.dat: $(BINDIR)/$(EXECUTIONFILE)
-	@echo calculating $@...
+	@echo calculating ...
 	$(BINDIR)/$(EXECUTIONFILE)
 
 $(DATADIR)/%.pdf: $(DATADIR)/%.dat $(PYTHDIR)/simpleplotter.py
-	@echo plotting $<...
+	@echo plotting ...
 	python3 $(PYTHDIR)/simpleplotter.py
 # Builder will call this to install the application before running.
 install:

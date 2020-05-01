@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
-rc('text', usetex=True)
+#rc('text', usetex=True)
 
 rawdata = np.loadtxt("data/number1.dat",delimiter=";" ,dtype=float)
 x_fit=rawdata[1:, 0]
@@ -36,7 +36,7 @@ x_fit=rawdata2[1:, 0]
 y_fit=rawdata2[1:, 1]
 for i in range(1,np.shape(rawdata)[1]):
     y_fit=rawdata2[1:, i]
-    plt.scatter(x_fit, y_fit,label="a="+str(rawdata2[0,i]),s=5,marker="x",linewidth=0.5)
+    plt.scatter(x_fit, y_fit,label="$a_{H2.2}=$"+str(rawdata2[0,i]),s=5,marker="x",linewidth=0.5)
 
 
 plt.legend(loc='best',ncol=2)
