@@ -1,5 +1,7 @@
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.use('Agg')
 rawdata = np.loadtxt("data/number1.dat",delimiter=";" ,dtype=float)
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
