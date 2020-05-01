@@ -6,7 +6,6 @@ from matplotlib import rc
 #rc('font',**{'family':'serif','serif':['Palatino']})
 rc('text', usetex=True)
 rawdata = np.loadtxt("data/number1.dat",delimiter=";" ,dtype=float)
-fig = plt.figure()
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
 plt.scatter(x_fit, y_fit,label="a="+str(rawdata[0,1]),s=5,marker="x",linewidth=0.5)
@@ -28,7 +27,6 @@ plt.close()
 
 
 rawdata = np.loadtxt("data/number2.dat",delimiter=";" ,dtype=float)
-fig = plt.figure()
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
 for i in range(1,np.shape(rawdata)[1]):
