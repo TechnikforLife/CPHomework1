@@ -90,9 +90,7 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 	 * @note	Memory allocation and setting of initial values
 	 */
 	t_tilde=(double*)mem_alloc (sizeof (double)*(m_max+1)*(m_max+2)/2);
-	for(int l=0;l<(m_max+1)*(m_max+2)/2;l++){
-		t_tilde[l]=0.;
-	}
+	
 	h=(double*)mem_alloc (sizeof (double)*(m_max+1));
 	n=n_0;
 	h[0]=(end-start)/(double)n;
@@ -124,7 +122,8 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 		}
 		//printf ("t(%d)=%.10e,h(%d)=%e,%e\n",i,t_tilde[idxc(i,i,&m_max)]*2./(sqrt (M_PI)*variables[2]),i,h[i],relprecision*t_tilde[idxc(i,i,&m_max)]);
 		if(fabs(t_tilde[idxc(i,i,&m_max)]-t_tilde[idxc(i-1,i-1,&m_max)])
-		   <fabs(relprecision*(t_tilde[idxc(i,i,&m_max)]+t_tilde[idxc(i-1,i-1,&m_max)])/2))break;
+		   <fabs(relprecision*(t_tilde[idxc(i,i,&m_max)]+
+							   t_tilde[idxc(i-1,i-1,&m_max)])/2))break;
 	}
 	
 	/**

@@ -4,7 +4,6 @@
  *  @author Dichter nd@nocoffeetech.de 
  * 
  *   
- * 
  *  @date 01.05.20	Moved f_i_integral1 and solveintegral_part1 into this modul
  * 
  *  @todo -

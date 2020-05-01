@@ -78,6 +78,8 @@ $(DATADIR)/%.pdf: $(DATADIR)/%.dat
 install:
 	echo "Installing is not supported"
 
+plot:
+	python3 $(PYTHDIR)/simpleplotter.py
 # Builder uses this target to run the application.
 run:$(BINDIR)/$(EXECUTIONFILE)
 	make $(DATADIR)/*.pdf

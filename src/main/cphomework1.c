@@ -7,7 +7,7 @@
 
 
 void value_table(double zstart,double zend,double astart,char* filename,
-				 double (*integrate_fp)(double*)){
+				 double (*fp)(double*)){
 	/**
 	 * Declarations:
 	 * variables		Saves the variables for function "f_i_integral1"
@@ -56,7 +56,7 @@ void value_table(double zstart,double zend,double astart,char* filename,
 		 * 			the integral of the currently used z and "astart"
 		 */
 		variables[2]=astart;
-		current=integrate_fp(variables);
+		current=fp(variables);
 		fprintf(datafile,"%e;%e;",variables[1],current);
 		variables[2]*=amult;
 		
@@ -65,13 +65,13 @@ void value_table(double zstart,double zend,double astart,char* filename,
 		 * 
 		 */
 		do{
-			current=integrate_fp(variables);
+			current=fp(variables);
 			fprintf(datafile,"%e;",current);
 			variables[2]*=amult;
 			
 		}while(variables[2]<aend);
 		variables[2]=aend;
-		current=integrate_fp(variables);
+		current=fp(variables);
 		fprintf(datafile,"%e\n",current);
 		
 		variables[1]+=zincrement;
@@ -84,6 +84,31 @@ void value_table(double zstart,double zend,double astart,char* filename,
 	fclose (datafile);
 }
 
+double symfirstderivative(double h,double (*fp)(double*),
+						  double* variables){
+	double current,prev;
+	double relprec=1e-8;
+	double z=variables[1];
+	
+	variables[1]=z+h;
+	current=fp(variables);
+	variables[1]=z-h;
+	current=(current-fp(variables))/(2.*h);
+	do{
+		h/=2.;
+		prev=current;
+		
+		variables[1]=z+h;
+		current=fp(variables);
+		variables[1]=z-h;
+		current=(current-fp(variables))/(2.*h);
+	}while(fabs (current-prev)>fabs((current+prev)*relprec/2.));
+	return current;
+}
+
+double e_field_part2(double* variables){
+	return -symfirstderivative (1e-1, solveintegral_part1, variables);
+}
 
 int main (int argc,char *argv[]){
 	
@@ -91,7 +116,7 @@ int main (int argc,char *argv[]){
 	mem_init (0);
 	value_table(1e-2,10.,1e-3,"data/number1.dat",solveintegral_part1);
 	
-	
+	value_table (1e-2, 10., 1e-1, "data/number2.dat", e_field_part2);
 	mem_free_all ();
 	return EXIT_SUCCESS;
 }
