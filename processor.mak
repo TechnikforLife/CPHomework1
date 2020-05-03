@@ -23,7 +23,7 @@ DISTDIR := dist
 DATADIR := data
 PYTHDIR := pyth
 
-EXECUTIONFILE := test
+EXECUTIONFILE := CPHomework1
 
 objects := $(subst $(SRCDIR)/,$(OBJDIR)/,$(cfiles:.c=.o))
 deps := $(objects:.o=.d)
@@ -78,7 +78,7 @@ plot:
 	python3 $(PYTHDIR)/simpleplotter.py
 
 #main calculation
-calc:
+calc:$(BINDIR)/$(EXECUTIONFILE)
 	@echo [make] calculating ...
 	$(BINDIR)/$(EXECUTIONFILE)
 
