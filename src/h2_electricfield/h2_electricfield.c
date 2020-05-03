@@ -1,5 +1,6 @@
 #include <math.h>
 #include "h2_electricfield.h"
+#include <stdio.h>
 #include "../integrate_romberg/integrate_romberg.h"
 #include "../h1_electricpot/h1_electricpot.h"
 
@@ -8,7 +9,10 @@ double symfirstderivative(double h,double (*fp)(double*),
 	double current,prev;
 	double relprec=1e-8;
 	double z=variables[1];
-	
+	int i=0;
+	if(fabs(variables[1])<1){
+		h=variables[1]/10.;
+	}
 	variables[1]=z+h;
 	current=fp(variables);
 	variables[1]=z-h;
@@ -21,6 +25,11 @@ double symfirstderivative(double h,double (*fp)(double*),
 		current=fp(variables);
 		variables[1]=z-h;
 		current=(current-fp(variables))/(2.*h);
+		i++;
+		if(i>1000){
+			printf("[WARNING] To many itterations in symfirstderivative\n");
+			break;
+		}
 	}while(fabs (current-prev)>fabs((current+prev)*relprec/2.));
 	variables[1]=z;
 	return current;

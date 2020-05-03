@@ -7,8 +7,8 @@
 #include "../h2_electricfield/h2_electricfield.h"
 #include "../h3_pointof_equalbalance/h3_pointof_equalbalance.h"
 
-void value_table(double zstart,double zend,double astart,char* filename,
-				 double (*fp)(double*)){
+void value_table(double zstart,double zend,double zfactor,double astart,
+				 double afactor,char* filename,double (*fp)(double*)){
 	/**
 	 * Declarations:
 	 * variables		Saves the variables for function "f_i_integral1"
@@ -24,8 +24,8 @@ void value_table(double zstart,double zend,double astart,char* filename,
 	double variables[3];
 	double current=0.;
 	double aend=4.;
-	double amult=10;
-	double zincrement=1e-1;
+	double amult=afactor;
+	double zincrement=zfactor;
 	FILE* datafile=NULL;
 	
 	/**
@@ -76,7 +76,6 @@ void value_table(double zstart,double zend,double astart,char* filename,
 		fprintf(datafile,"%e\n",current);
 		
 		variables[1]+=zincrement;
-		
 	}while(variables[1]<zend);
 	
 	fprintf (datafile,"\n");
@@ -86,21 +85,70 @@ void value_table(double zstart,double zend,double astart,char* filename,
 }
 
 
-
-
-
 int main (int argc,char *argv[]){
 	
 	
 	mem_init (0);
-	value_table(1e-2,10.,1e-3,"data/number1.dat",solveintegral_part1);
+	value_table(/*zstart*/	1e-2,
+				/*zend*/	10.,
+				/*zfactor*/	0.1,
+				/*astart*/	1e-3,
+				/*afactor*/	10.,
+				/*filename*/"data/number1.dat",
+				/*fct*/		solveintegral_part1);
 	
-	value_table (1e-2, 10., 1e-1, "data/number21.dat", e_field_part2);
+	value_table(/*zstart*/	1e-2,
+				/*zend*/	10.,
+				/*zfactor*/	0.1,
+				/*astart*/	1e-1,
+				/*afactor*/	10.,
+				/*filename*/"data/number21.dat",
+				/*fct*/		e_field_part2);
 	
-	value_table (1e-2, 10., 1e-1, "data/number22.dat", solveH22);
-	double variables[3] = {1, 2, 3};
-	printf("The electric field at the given location is  and"
-			" the potential is %e\n", potentialH3(variables));
+	value_table(/*zstart*/	1e-2,
+				/*zend*/	10.,
+				/*zfactor*/	0.1,
+				/*astart*/	1e-1,
+				/*afactor*/	10.,
+				/*filename*/"data/number22.dat",
+				/*fct*/		solveH22);
+	
+	/**
+	 * Declarations:
+	 * variables[0]=x
+	 * variables[1]=z
+	 * variables[2]=a
+	 */
+	
+	value_table(/*zstart*/	1e-2,
+				/*zend*/	11.,
+				/*zfactor*/	0.1,
+				/*astart*/	5e-1,
+				/*afactor*/	2.,
+				/*filename*/"data/number31.dat",
+				/*fct*/		potentialH3);
+	value_table(/*zstart*/	1e-1,
+				/*zend*/	11.,
+				/*zfactor*/	0.1,
+				/*astart*/	5e-1,
+				/*afactor*/	2.,
+				/*filename*/"data/number32.dat",
+				/*fct*/		electricfieldsH3);
+	
+	double variables[3] = {1, 2, 2};
+	variables[2]=6e-1;
+	FILE* zeros=fopen ("data/number33.dat", "w");
+	do{
+		
+		fprintf(zeros,"%e;%e\n",variables[2],
+			   rootsecant (1, 5, electricfieldsH3, 1e-8, variables));
+		variables[2]*=1.1;
+	}while(variables[2]<4.);
+	variables[2]=4.;
+	fprintf(zeros,"%e;%e\n",variables[2],
+			   rootsecant (1, 5, electricfieldsH3, 1e-8, variables));
+	
 	mem_free_all ();
 	return EXIT_SUCCESS;
 }
+

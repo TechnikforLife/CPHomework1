@@ -30,14 +30,15 @@ double integratetrapez_posinf(double lowerboundary,
 	 * @note	f(x_i) gets calulated and added to the sum,
 	 * 			until the f(x_i)<sum*relprecision.
 	 */
-
+	//printf("sum=%e\n",variables[1]);
 	do{
 		variables[0]=lowerboundary+subintervalllength*i;
 		f_x_i=(*fp)(variables);
 		sum+=f_x_i;
 		i++;
-		//printf("%e,%e,i=%d\n",f_x_i,sum,i);
-	}while((fabs(f_x_i)>fabs(relprecision))||(fabs(f_x_i)>fabs(sum*relprecision)));
+		if(i>1000000)break;
+	//printf("%e,%e,i=%d\n",f_x_i,sum,i);
+	}while((fabs(f_x_i)>fabs(relprecision)||(fabs(f_x_i)>fabs(sum*relprecision))));
 	//printf ("-\n");
 	/**
 	 * @note	Calculate f(x_n) (n last relevant index)
@@ -96,7 +97,7 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 	h[0]=(end-start)/(double)n;
 	
 	t_tilde[0]=integratetrapez_posinf (start, fp,
-								h[0],variables, relprecision/10);
+								h[0],variables, relprecision/100);
 	//printf ("t(0)=%.10e,m_max=%d,%e\n",t_tilde[0]*2./(sqrt (M_PI)*variables[2]),m_max,relprecision);
 	for(i=1;i<=m_max;i++){
 		//print_t_tild(t_tilde,m_max);
@@ -105,7 +106,7 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 		 */
 		h[i]=h[i-1]/2;
 		t_tilde[idxc (i, 0, &m_max)]=integratetrapez_posinf (start, fp,
-								h[i],variables, relprecision/10);
+								h[i],variables, relprecision/100);
 		
 		/**
 		 * @note	Calculate the T_tilde_{i,k} 
@@ -170,6 +171,10 @@ double romberg_converge_check(double * variables,double lowerboundary,
 		m_max*=2;
 		current=integrate_romberg (lowerboundary,upperboundary,fp,variables,m_max, 
 							   n_0, relprecision,&stagesused,endisinf);
+		if(m_max>1000){
+			printf("[WARNING] To many itterations in romberg_converge_check\n");
+			break;
+		}
 	}
 	
 	return current;
