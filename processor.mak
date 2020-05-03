@@ -44,17 +44,17 @@ list-variables:
 # generate dependencies
 $(OBJDIR)/%.d : $(SRCDIR)/%.c
 	mkdir -p $(@D)
-	@echo finding headers of $< ...
+	@echo [make] finding headers of $< ...
 	$(CC) -MM -MT "$@ $(patsubst %.d,%.o,$@)" -MF $@ $<
 
 # compiling
 $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	@echo compiling $< ...
+	@echo [make] compiling $< ...
 	$(CC) $(CFLAGS) $< -o $@
 
 # linking
 $(BINDIR)/$(EXECUTIONFILE) : $(objects) processor.mak Makefile
-	@echo linking $@ ...
+	@echo [make] linking $@ ...
 	mkdir -p $(BINDIR)
 	mkdir -p $(DATADIR)
 	$(CC) -o $@ $(objects) $(LDFLAGS)
@@ -62,27 +62,29 @@ $(BINDIR)/$(EXECUTIONFILE) : $(objects) processor.mak Makefile
 #distribute
 $(DISTDIR)/$(EXECUTIONFILE).zip: $(BINDIR)/$(EXECUTIONFILE)
 	mkdir -p $(DISTDIR)
-	@echo zipping $< ...
+	@echo [make] zipping $< ...
 	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(BINDIR) $(SRCDIR) $(PYTHDIR) processor.mak Makefile
 
 dist: $(DISTDIR)/$(EXECUTIONFILE).zip
 
-$(DATADIR)/%.dat: $(BINDIR)/$(EXECUTIONFILE)
-	@echo calculating ...
-	$(BINDIR)/$(EXECUTIONFILE)
 
-$(DATADIR)/%.pdf: $(DATADIR)/%.dat $(PYTHDIR)/simpleplotter.py
-	@echo plotting ...
-	python3 $(PYTHDIR)/simpleplotter.py
 # Builder will call this to install the application before running.
 install:
 	echo "Installing is not supported"
 
+#plot
 plot:
+	@echo [make] plotting ...
 	python3 $(PYTHDIR)/simpleplotter.py
+
+#main calculation
+calc:
+	@echo [make] calculating ...
+	$(BINDIR)/$(EXECUTIONFILE)
+
 # Builder uses this target to run the application.
-run:$(BINDIR)/$(EXECUTIONFILE)
-	make $(DATADIR)/*.pdf
+run:
+	make calc plot
 
 #clean directrories
 clean:

@@ -24,7 +24,7 @@ plt.savefig("data/number1.pdf", bbox_inches=0,format='pdf')
 plt.close()
 
 
-rawdata = np.loadtxt("data/number2.dat",delimiter=";" ,dtype=float)
+rawdata = np.loadtxt("data/number21.dat",delimiter=";" ,dtype=float)
 x_fit=rawdata[1:, 0]
 y_fit=rawdata[1:, 1]
 for i in range(1,np.shape(rawdata)[1]):
