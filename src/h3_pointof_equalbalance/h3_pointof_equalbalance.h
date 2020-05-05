@@ -32,7 +32,7 @@ double potentialH3(double *variables);
 /** @fn double electricfieldsH3(double *variables);
  * @brief Calculates the electricfield needed in H3
  * 
- * Uses "symfirstderivative" from "h2_electricfield.h" and "potentialH3".
+ * Uses "symfirstderivative" from "h2_electricfield.c" and "potentialH3".
  * 
  * @param variables		Array of variables to be used in the calculation 
  */
@@ -45,8 +45,7 @@ double electricfieldsH3(double *variables);
  * @brief Calculates the root of "fp"
  * 
  * Calculates the root of "fp", using the secant method with the given 
- * start values,
- * to the given relativ precision.
+ * start values, to the given relativ precision.
  * 
  * @param a				Lower Start value
  * @param b				Lower Start value

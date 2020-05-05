@@ -6,10 +6,27 @@
 
 double symfirstderivative(double h,double (*fp)(double*),
 						  double* variables){
+	/**
+	 * Declarations:
+	 * @var current		Current value of the derivative
+	 * @var prev		Previous value of the derivative
+	 * @var relprec		Relativ precision to be used for the calculation
+	 * @var i			Itteration variable
+	 */
 	double current,prev;
 	double relprec=1e-8;
 	double z=variables[1];
 	int i=0;
+	
+	/**
+	 * @note	Prevent function call at variables[1]=0
+	 * 			In each Itteration step:
+	 * 				Halfen the stepsize h.
+	 * 				Calculate fp(z+h) and fp(z-h)
+	 * 				Estimate the value of the derivative at fp(z) until 
+	 * 				the relative precision is met, 
+	 * 				or an itteration limit is reached
+	 */
 	if(fabs(variables[1])<1){
 		h=variables[1]/10.;
 	}

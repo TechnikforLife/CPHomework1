@@ -30,7 +30,6 @@ double integratetrapez_posinf(double lowerboundary,
 	 * @note	f(x_i) gets calulated and added to the sum,
 	 * 			until the f(x_i)<sum*relprecision.
 	 */
-	//printf("sum=%e\n",variables[1]);
 	do{
 		variables[0]=lowerboundary+subintervalllength*i;
 		f_x_i=(*fp)(variables);
@@ -48,17 +47,6 @@ double integratetrapez_posinf(double lowerboundary,
 	sum+=(*fp)(variables)/2.;
 	return sum*subintervalllength;
 }
-/*
-void print_t_tild(double*t_tilde,int m_max){
-	printf ("-----------------------------\n");
-	for(int i=0;i<=m_max;i++){
-		for(int k=0;k<=i;k++){
-			printf("T_{%d,%d}%e;",i,k,t_tilde[idxc(i, k, &m_max)]);
-			
-		}
-		printf("|\n");
-	}
-}*/
 
 int idxc(int i,int k, int* m_max_ptr){
 	/**
@@ -98,9 +86,8 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 	
 	t_tilde[0]=integratetrapez_posinf (start, fp,
 								h[0],variables, relprecision/100);
-	//printf ("t(0)=%.10e,m_max=%d,%e\n",t_tilde[0]*2./(sqrt (M_PI)*variables[2]),m_max,relprecision);
+	
 	for(i=1;i<=m_max;i++){
-		//print_t_tild(t_tilde,m_max);
 		/**
 		 * @note	Calculate h_i and T_tilde_{i,0} using trapez integration
 		 */
@@ -121,7 +108,7 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 					(h[i]*h[i]-h[i-k]*h[i-k])*t_tilde[idxc(i-1,k-1,&m_max)];
 			
 		}
-		//printf ("t(%d)=%.10e,h(%d)=%e,%e\n",i,t_tilde[idxc(i,i,&m_max)]*2./(sqrt (M_PI)*variables[2]),i,h[i],relprecision*t_tilde[idxc(i,i,&m_max)]);
+		
 		if(fabs(t_tilde[idxc(i,i,&m_max)]-t_tilde[idxc(i-1,i-1,&m_max)])
 		   <fabs(relprecision*(t_tilde[idxc(i,i,&m_max)]+
 							   t_tilde[idxc(i-1,i-1,&m_max)])/2))break;
@@ -136,7 +123,6 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
 		printf ("Relativ precision could not be reached in %d stages.\n",m_max);
 		ret=t_tilde[idxc (m_max, m_max, &m_max)];
 	}else{
-		//printf("%d stage(s) were needed.\n",i);
 		ret=t_tilde[idxc (i, i, &m_max)];
 	}
 	
@@ -155,15 +141,14 @@ double romberg_converge_check(double * variables,double lowerboundary,
 	 * @var m_max		Maximum amount of stages used in "integrate_romberg"
 	 * @var stagesused	Saves how many stages were used in "integrate_romberg"
 	 */
-	//printf ("z=%e,a=%e\n",variables[1],variables[2]);
 	double current;
 	int m_max=30;
 	int stagesused=0;
 	
 	/**
 	 * @note	Calculate the value of the integral using "integrate_romberg"
-	 * 			with increasing "m_max" until the precision is met
-	 * 			(stagesused<=m_max).
+	 * 			with increasing "m_max" until the precision is met 
+	 * 			(stagesused<=m_max) or m_max>1000 (itteration limit).
 	 */
 	current=integrate_romberg (lowerboundary,upperboundary,fp,variables,m_max, 
 							   n_0, relprecision,&stagesused,endisinf);

@@ -22,9 +22,10 @@
 
 /** @fn double symfirstderivative(double h,double (*fp)(double*),
  * 							double* variables);
- * @brief Calculates the derivative of "fp" at "variables[0]"
+ * @brief Calculates the derivative of "fp" at "variables[1]"
  * 
- * Estimates the derivative of "fp" at "variables[0]" to precision of 1e-8.
+ * Estimates the derivative of "fp" at "variables[1]" to precision of 1e-8,
+ * using the symetric approximation.
  * The rest of "variables" can be set to the desired values in advance.
  * 
  * @param h				Start value for the stepsize

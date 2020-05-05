@@ -89,6 +89,7 @@ double integrate_romberg(double start,double end,double (*fp)(double*),
  * the given array of variables(where variables[0])is the variable 
  * in which "fp" gets integrated.The amount of stages to use gets 
  * automatically adjusted to reach the needed precision.
+ * "integrate_romberg" gets used for the main integration part.
  * 
  * @param variables		Array of variables to be passed onto "fp"
  * @param lowerboundary	Lowerboundary of the integral

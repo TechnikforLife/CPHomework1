@@ -29,7 +29,7 @@ double f_i_integral1(double * variables);
 
 
 /** @fn double solveintegral_part1(double*variables);
- * @brief Solves the first integral with the given values for "variables"
+ * @brief Solves the first integral (H1.2) with the given values for "variables"
  * 
  * @param variables		Array of variables to be used in the integration 
  * 						of the function
