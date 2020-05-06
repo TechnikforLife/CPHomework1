@@ -63,7 +63,7 @@ $(BINDIR)/$(EXECUTIONFILE) : $(objects) processor.mak Makefile
 $(DISTDIR)/$(EXECUTIONFILE).zip: $(BINDIR)/$(EXECUTIONFILE)
 	mkdir -p $(DISTDIR)
 	@echo [make] zipping $< ...
-	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(BINDIR) $(SRCDIR) $(PYTHDIR) processor.mak Makefile
+	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(SRCDIR) $(PYTHDIR) processor.mak Makefile
 
 dist: $(DISTDIR)/$(EXECUTIONFILE).zip
 
@@ -94,7 +94,6 @@ clean:
 cleanall:
 	$(RM) -r -f $(OBJDIR)
 	$(RM) -r -f $(BINDIR)
-	$(RM) -r -f $(DISTDIR)
 	$(RM) -r -f $(DATADIR)
 
 
