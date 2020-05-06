@@ -1,3 +1,9 @@
+// Die folgenden Befehle müssen im Verzeichnis, 
+// in dem die "Makefile" liegt ausgeführt werden:
+// make
+// make calc
+// Nico Dichter, Florian Giefer
+// Die Plots können mit "make plot" erstellt werden.
 #include <math.h>
 #include "h1_electricpot.h"
 #include "../integrate_romberg/integrate_romberg.h"

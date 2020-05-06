@@ -1,3 +1,9 @@
+// Die folgenden Befehle müssen im Verzeichnis, 
+// in dem die "Makefile" liegt ausgeführt werden:
+// make
+// make calc
+// Nico Dichter, Florian Giefer
+// Die Plots können mit "make plot" erstellt werden.
 /** 
  *  @file h2_electricfield.h
  *  @brief Provides functions for homework1 part2

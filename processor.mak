@@ -60,10 +60,10 @@ $(BINDIR)/$(EXECUTIONFILE) : $(objects) processor.mak Makefile
 	$(CC) -o $@ $(objects) $(LDFLAGS)
 
 #distribute
-$(DISTDIR)/$(EXECUTIONFILE).zip: $(BINDIR)/$(EXECUTIONFILE)
+$(DISTDIR)/$(EXECUTIONFILE).zip:
 	mkdir -p $(DISTDIR)
 	@echo [make] zipping $< ...
-	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(SRCDIR) $(PYTHDIR) processor.mak Makefile
+	zip -r $(DISTDIR)/$(EXECUTIONFILE).zip $(SRCDIR) $(PYTHDIR) processor.mak Makefile CPHomework1.pdf
 
 dist: $(DISTDIR)/$(EXECUTIONFILE).zip
 
