@@ -7,6 +7,9 @@
  *   
  *  @date 03.05.20	Moved symfirstderivative, e_field_part2, diffintegrantH2_2 
  *  				and solveH22 into this modul
+ *  @date 06.05.20	Renamed e_field_part2 to e_field_H21
+ * 					Renamed diffintegrantH2_2 to integrant_H22
+ * 					Renamed solveH22 to solveintegral_H22
  * 
  *  @todo -
  * 
@@ -37,7 +40,7 @@ double symfirstderivative(double h,double (*fp)(double*),double* variables);
 
 
 
-/** @fn double e_field_part2(double* variables);
+/** @fn double e_field_H21(double* variables);
  * @brief Calculates the E-field for H2
  * 
  * Estimates the E-field for H2 using "symfirstderivative" 
@@ -45,24 +48,24 @@ double symfirstderivative(double h,double (*fp)(double*),double* variables);
  * 
  * @param variables		Array of variables to be used in the calculation 
  */
-double e_field_part2(double* variables);
+double e_field_H21(double* variables);
 
 
 
-/** @fn double diffintegrantH2_2(double* variables);
+/** @fn double integrant_H22(double* variables);
  * @brief Provides integrant for H2.2
  * 
  * @param variables		Array of variables to be used in the calculation 
  */
-double diffintegrantH2_2(double* variables);
+double integrant_H22(double* variables);
 
 
 
-/** @fn double solveH22(double*variables);
+/** @fn double solveintegral_H22(double*variables);
  * @brief Solves the integral for H2.2 with the given values for "variables"
  * 
  * @param variables		Array of variables to be used in the integration 
  * 						of the function
  */
-double solveH22(double*variables);
+double solveintegral_H22(double*variables);
 #endif //ifndef H2_ELECTRICFIELD_H

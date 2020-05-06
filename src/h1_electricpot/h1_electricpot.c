@@ -1,7 +1,7 @@
 #include <math.h>
 #include "h1_electricpot.h"
 #include "../integrate_romberg/integrate_romberg.h"
-double f_i_integral1(double * variables){
+double integrant_H12(double * variables){
 	
 	/**
 	 * Declarations:
@@ -9,11 +9,11 @@ double f_i_integral1(double * variables){
 	 * variables[1]=z
 	 * variables[2]=a
 	 */
-	return exp(-pow(variables[0],2)/(pow(variables[2],2)))
-			/sqrt (pow(variables[0],2)+pow(variables[1],2));
+	return exp(-variables[0]*variables[0]/(variables[2]*variables[2]))
+			/sqrt (variables[0]*variables[0]+variables[1]*variables[1]);
 }
 
-double solveintegral_part1(double*variables){
+double solveintegral_H12(double*variables){
 	
 	/**
 	 * Declarations:
@@ -28,5 +28,5 @@ double solveintegral_part1(double*variables){
 	int n_0=2;
 	
 	return prefix*romberg_converge_check(variables,0.,
-									upperboundary_sv,f_i_integral1,prec,n_0,1);
+									upperboundary_sv,integrant_H12,prec,n_0,1);
 }

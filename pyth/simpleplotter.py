@@ -101,7 +101,6 @@ y_dat=rawdata[:, 1]
 plt.scatter(x_dat, y_dat,label="Location of roots",s=5,marker="x",linewidth=0.5)
 
 
-
 plt.legend(loc='best',ncol=2)
 plt.xlabel("$a_2$")
 plt.ylabel("z")

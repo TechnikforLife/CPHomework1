@@ -134,7 +134,7 @@ int main (void){
 				/*astart*/	1e-3,
 				/*afactor*/	10.,
 				/*filename*/"data/number1.dat",
-				/*fct*/		solveintegral_part1);
+				/*fct*/		solveintegral_H12);
 	
 	//Part 2:
 	value_table(/*zstart*/	1e-2,
@@ -143,7 +143,7 @@ int main (void){
 				/*astart*/	1e-1,
 				/*afactor*/	10.,
 				/*filename*/"data/number21.dat",
-				/*fct*/		e_field_part2);
+				/*fct*/		e_field_H21);
 	
 	value_table(/*zstart*/	1e-2,
 				/*zend*/	10.,
@@ -151,7 +151,7 @@ int main (void){
 				/*astart*/	1e-1,
 				/*afactor*/	10.,
 				/*filename*/"data/number22.dat",
-				/*fct*/		solveH22);
+				/*fct*/		solveintegral_H22);
 	
 	//Part 3:
 	value_table(/*zstart*/	1e-2,

@@ -52,17 +52,17 @@ double symfirstderivative(double h,double (*fp)(double*),
 	return current;
 }
 
-double e_field_part2(double* variables){
+double e_field_H21(double* variables){
 	/**
 	 * Declarations:
 	 * variables[0]=x
 	 * variables[1]=z
 	 * variables[2]=a
 	 */
-	return -symfirstderivative (1e-1, solveintegral_part1, variables);
+	return -symfirstderivative (1e-1, solveintegral_H12, variables);
 }
 
-double diffintegrantH2_2(double* variables){
+double integrant_H22(double* variables){
 	/**
 	 * Declarations:
 	 * variables[0]=x
@@ -73,7 +73,7 @@ double diffintegrantH2_2(double* variables){
 													pow(variables[1],2), 1.5);
 }
 
-double solveH22(double*variables){
+double solveintegral_H22(double*variables){
 	/**
 	 * Declarations:
 	 * prefix			Prefix of the integral
@@ -86,5 +86,5 @@ double solveH22(double*variables){
 	double upperboundary_sv=1.;
 	int n_0=2;
 	return prefix*romberg_converge_check(variables,0.,
-								upperboundary_sv,diffintegrantH2_2,prec,n_0,1);
+								upperboundary_sv,integrant_H22,prec,n_0,1);
 }

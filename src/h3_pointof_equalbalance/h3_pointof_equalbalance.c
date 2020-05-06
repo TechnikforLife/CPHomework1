@@ -34,11 +34,11 @@ double potentialH3(double *variables){
 	}
 	
 	variables[1] = z - d;
-	v2 = solveintegral_part1(variables);
+	v2 = solveintegral_H12(variables);
 	
 	variables[1] = z;
 	variables[2] = a1;
-	v1 = solveintegral_part1(variables);
+	v1 = solveintegral_H12(variables);
 	variables[2] = a2;
 	return v1+4*v2;
 }
